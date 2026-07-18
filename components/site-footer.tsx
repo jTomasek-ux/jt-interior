@@ -20,25 +20,14 @@ export function SiteFooter() {
     >
       <ScrollSlide fromY={100}>
         <div className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8 lg:gap-12">
-          <div className="flex flex-col gap-6 md:gap-8">
-            <div className="relative aspect-[3/4] w-full max-w-[420px] overflow-hidden">
-              <Image
-                src={footerImage}
-                alt="JT Interiors project exterior"
-                fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-cover"
-              />
-            </div>
-
-            <div className="overflow-hidden leading-none">
-              <p
-                className="translate-y-[12%] text-[clamp(7rem,24vw,16rem)] font-bold tracking-[-0.06em] text-foreground"
-                aria-label="JT Interiors"
-              >
-                JT
-              </p>
-            </div>
+          <div className="relative aspect-[3/4] w-full max-w-[420px] overflow-hidden">
+            <Image
+              src={footerImage}
+              alt="JT Interiors project exterior"
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="object-cover"
+            />
           </div>
 
           <nav aria-label="Footer">
@@ -101,71 +90,96 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col gap-6 border-t border-black/10 pt-6 text-[11px] leading-[14px] font-bold tracking-[0.06em] uppercase text-foreground md:mt-20 md:flex-row md:items-start md:justify-between md:gap-8">
-          <div className="flex flex-col gap-1">
-            <span>© {year} JT Interiors</span>
-            <span className="font-medium tracking-[0.04em] text-foreground/55">
-              By appointment
-            </span>
-          </div>
-
-          <div className="flex flex-col gap-1">
-            <Link href="/privacy" className="group inline-flex w-fit">
-              <span className="relative block h-[14px] overflow-hidden">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[14px]">Privacy Policy</span>
-                  <span className="block h-[14px]" aria-hidden>
-                    Privacy Policy
-                  </span>
-                </span>
-              </span>
-            </Link>
-            <Link href="/terms" className="group inline-flex w-fit">
-              <span className="relative block h-[14px] overflow-hidden">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[14px]">Terms of Service</span>
-                  <span className="block h-[14px]" aria-hidden>
-                    Terms of Service
-                  </span>
-                </span>
-              </span>
-            </Link>
-          </div>
-
-          <div>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noreferrer"
-              className="group inline-flex w-fit"
+        <div className="mt-16 text-foreground md:mt-20">
+          <svg
+            className="block w-full font-sans"
+            viewBox="0 0 1000 160"
+            preserveAspectRatio="xMidYMax meet"
+            role="img"
+            aria-label="JT Interiors"
+          >
+            <text
+              x="0"
+              y="155"
+              textLength="1000"
+              lengthAdjust="spacingAndGlyphs"
+              fill="currentColor"
+              style={{
+                fontSize: 155,
+                fontWeight: 700,
+                fontFamily: "inherit",
+              }}
             >
-              <span className="relative block h-[14px] overflow-hidden">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[14px]">Instagram</span>
-                  <span className="block h-[14px]" aria-hidden>
-                    Instagram
-                  </span>
-                </span>
-              </span>
-            </a>
-          </div>
+              JT Interiors
+            </text>
+          </svg>
 
-          <div className="flex md:justify-end">
-            <Link href="/contact" className="group inline-flex">
-              <span className="relative block h-[14px] overflow-hidden">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[14px] underline underline-offset-2">
-                    Get in touch
-                  </span>
-                  <span
-                    className="block h-[14px] underline underline-offset-2"
-                    aria-hidden
-                  >
-                    Get in touch
+          <div className="flex flex-col gap-6 border-t border-black/10 pt-6 text-[11px] leading-[14px] font-bold tracking-[0.06em] uppercase md:flex-row md:items-start md:justify-between md:gap-8">
+            <div className="flex flex-col gap-1">
+              <span>© {year} JT Interiors</span>
+              <span className="font-medium tracking-[0.04em] text-foreground/55">
+                By appointment
+              </span>
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <Link href="/privacy" className="group inline-flex w-fit">
+                <span className="relative block h-[14px] overflow-hidden">
+                  <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                    <span className="block h-[14px]">Privacy Policy</span>
+                    <span className="block h-[14px]" aria-hidden>
+                      Privacy Policy
+                    </span>
                   </span>
                 </span>
-              </span>
-            </Link>
+              </Link>
+              <Link href="/terms" className="group inline-flex w-fit">
+                <span className="relative block h-[14px] overflow-hidden">
+                  <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                    <span className="block h-[14px]">Terms of Service</span>
+                    <span className="block h-[14px]" aria-hidden>
+                      Terms of Service
+                    </span>
+                  </span>
+                </span>
+              </Link>
+            </div>
+
+            <div>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="group inline-flex w-fit"
+              >
+                <span className="relative block h-[14px] overflow-hidden">
+                  <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                    <span className="block h-[14px]">Instagram</span>
+                    <span className="block h-[14px]" aria-hidden>
+                      Instagram
+                    </span>
+                  </span>
+                </span>
+              </a>
+            </div>
+
+            <div className="flex md:justify-end">
+              <Link href="/contact" className="group inline-flex">
+                <span className="relative block h-[14px] overflow-hidden">
+                  <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                    <span className="block h-[14px] underline underline-offset-2">
+                      Get in touch
+                    </span>
+                    <span
+                      className="block h-[14px] underline underline-offset-2"
+                      aria-hidden
+                    >
+                      Get in touch
+                    </span>
+                  </span>
+                </span>
+              </Link>
+            </div>
           </div>
         </div>
       </ScrollSlide>
