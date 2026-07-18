@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { getImageProps } from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ButtonPrimary } from "@/components/button-primary";
@@ -17,6 +17,42 @@ const navLinks = [
   { href: "/process", label: "PROCESS" },
   { href: "/gallery", label: "GALLERY" },
 ] as const;
+
+const heroAlt = "JT Interiors featured architectural interior";
+
+/** Mobile portrait cover is height-driven; 130vw keeps 3x phones sharp. */
+const heroMobileSizes = "130vw";
+const heroDesktopSizes = "100vw";
+
+const {
+  props: { srcSet: heroDesktopSrcSet },
+} = getImageProps({
+  alt: heroAlt,
+  sizes: heroDesktopSizes,
+  quality: 90,
+  priority: true,
+  src: "/images/Hero(2).jpg",
+  width: 6144,
+  height: 3240,
+});
+
+const {
+  props: {
+    srcSet: heroMobileSrcSet,
+    width: _heroWidth,
+    height: _heroHeight,
+    style: _heroStyle,
+    ...heroImgProps
+  },
+} = getImageProps({
+  alt: heroAlt,
+  sizes: heroMobileSizes,
+  quality: 90,
+  priority: true,
+  src: "/images/hero-mobile.jpg",
+  width: 1823,
+  height: 3240,
+});
 
 export function HomeHero() {
   const lenis = useLenis();
@@ -35,33 +71,46 @@ export function HomeHero() {
 
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: spacer,
-          start: "top top",
-          end: "bottom top",
-          scrub: 0.7,
-        },
-      });
+    mm.add(
+      {
+        reduceMotion: "(prefers-reduced-motion: reduce)",
+        isMobile: "(max-width: 767px)",
+        isDesktop: "(min-width: 768px)",
+      },
+      (context) => {
+        const { reduceMotion, isMobile } = context.conditions!;
+        if (reduceMotion) return;
 
-      tl.fromTo(
-        media,
-        { yPercent: 0, scale: 1 },
-        { yPercent: 22, scale: 1.14, ease: "none" },
-        0,
-      ).fromTo(
-        content,
-        { yPercent: 0, opacity: 1 },
-        { yPercent: -18, opacity: 0, ease: "none" },
-        0,
-      );
+        const scaleTo = isMobile ? 1.04 : 1.14;
+        const yPercentTo = isMobile ? 12 : 22;
 
-      return () => {
-        tl.scrollTrigger?.kill();
-        tl.kill();
-      };
-    });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: spacer,
+            start: "top top",
+            end: "bottom top",
+            scrub: 0.7,
+          },
+        });
+
+        tl.fromTo(
+          media,
+          { yPercent: 0, scale: 1 },
+          { yPercent: yPercentTo, scale: scaleTo, ease: "none" },
+          0,
+        ).fromTo(
+          content,
+          { yPercent: 0, opacity: 1 },
+          { yPercent: -18, opacity: 0, ease: "none" },
+          0,
+        );
+
+        return () => {
+          tl.scrollTrigger?.kill();
+          tl.kill();
+        };
+      },
+    );
 
     return () => mm.revert();
   }, []);
@@ -73,14 +122,20 @@ export function HomeHero() {
         className="fixed inset-0 z-0 h-dvh w-full overflow-hidden text-on-dark"
       >
         <div ref={mediaRef} className="absolute inset-0 will-change-transform">
-          <Image
-            src="/images/Hero(2).jpg"
-            alt="JT Interiors featured architectural interior"
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
+          <picture>
+            <source
+              media="(min-width: 768px)"
+              srcSet={heroDesktopSrcSet}
+              sizes={heroDesktopSizes}
+            />
+            <img
+              {...heroImgProps}
+              srcSet={heroMobileSrcSet}
+              sizes={heroMobileSizes}
+              className="absolute inset-0 h-full w-full object-cover"
+              fetchPriority="high"
+            />
+          </picture>
         </div>
 
         <div
