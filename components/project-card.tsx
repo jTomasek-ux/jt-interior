@@ -1,6 +1,8 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
 import type { Project } from "@/lib/projects";
+import { ParallaxImage } from "@/components/parallax-image";
 
 type ProjectCardProps = {
   project: Project;
@@ -15,16 +17,16 @@ export function ProjectCard({ project, tall = false }: ProjectCardProps) {
       <div
         className={`relative overflow-hidden ${tall ? "aspect-[3/4]" : "aspect-square"}`}
       >
-        <Image
+        <ParallaxImage
           src={project.image}
           alt={project.name}
-          fill
           sizes="(max-width: 768px) 50vw, 25vw"
-          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          travel={tall ? 18 : 24}
+          className="absolute inset-0 h-full w-full transition-transform duration-500 ease-out group-hover:scale-[1.02]"
         />
 
         <div
-          className="absolute inset-x-0 bottom-0 flex h-[1in] translate-y-full items-stretch justify-between px-3 py-2.5 transition-transform duration-500 ease-out group-hover:translate-y-0 md:px-4"
+          className="absolute inset-x-0 bottom-0 z-10 flex h-[1in] translate-y-full items-stretch justify-between px-3 py-2.5 transition-transform duration-500 ease-out group-hover:translate-y-0 md:px-4"
           style={{ backgroundColor: project.hoverColor }}
         >
           <div className="flex min-w-0 flex-col justify-between">
