@@ -43,16 +43,23 @@ export function SiteFooter() {
 
           <nav aria-label="Footer">
             <p className="mb-6 text-[12px] leading-[15px] font-bold tracking-[0.08em] uppercase text-foreground md:mb-8">
-              (&nbsp;Navigation)
+              (Navigation)
             </p>
             <ul className="flex flex-col">
               {footerNav.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="inline-block py-0.5 text-[clamp(1.75rem,3.5vw,3rem)] leading-[1.02] font-bold tracking-[-0.035em] text-foreground transition-opacity duration-300 hover:opacity-55"
+                    className="group inline-flex py-0.5 text-[clamp(1.75rem,3.5vw,3rem)] leading-[1.02] font-bold tracking-[-0.035em] text-foreground"
                   >
-                    {item.label}
+                    <span className="relative block h-[1.02em] overflow-hidden">
+                      <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                        <span className="block h-[1.02em]">{item.label}</span>
+                        <span className="block h-[1.02em]" aria-hidden>
+                          {item.label}
+                        </span>
+                      </span>
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -62,7 +69,7 @@ export function SiteFooter() {
           <div className="flex flex-col gap-10 md:gap-12">
             <div>
               <p className="mb-4 text-[12px] leading-[15px] font-bold tracking-[0.08em] uppercase text-foreground">
-                (&nbsp;Studio)
+                (Studio)
               </p>
               <p className="max-w-[36ch] text-[14px] leading-[1.35] font-medium tracking-[-0.01em] text-foreground">
                 {footerStudioNote}
@@ -71,7 +78,7 @@ export function SiteFooter() {
 
             <div>
               <p className="mb-4 text-[12px] leading-[15px] font-bold tracking-[0.08em] uppercase text-foreground">
-                (&nbsp;Info)
+                (Info)
               </p>
               <ul className="flex flex-col gap-2">
                 {footerInfo.map((row) => (

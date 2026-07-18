@@ -106,9 +106,16 @@ export function HomeHero() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="text-[14px] leading-[14px] font-semibold tracking-[0.08em]"
+                  className="group text-[14px] leading-[14px] font-semibold tracking-[0.08em]"
                 >
-                  {link.label}
+                  <span className="relative block h-[14px] overflow-hidden">
+                    <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                      <span className="block h-[14px]">{link.label}</span>
+                      <span className="block h-[14px]" aria-hidden>
+                        {link.label}
+                      </span>
+                    </span>
+                  </span>
                 </Link>
               ))}
             </nav>
