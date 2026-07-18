@@ -1,11 +1,12 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useLenis } from "lenis/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
+import { ButtonPrimary } from "@/components/button-primary";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLenis } from "lenis/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -112,23 +113,7 @@ export function HomeHero() {
               ))}
             </nav>
 
-            <Link
-              href="/contact"
-              className="group inline-flex items-center gap-2.5 rounded-[100px] bg-black px-5 py-4 text-[14px] leading-[14px] font-bold tracking-[0.06em] text-on-dark"
-            >
-              <span className="relative block h-[14px] overflow-hidden">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[14px]">GET IN TOUCH</span>
-                  <span className="block h-[14px]" aria-hidden>
-                    GET IN TOUCH
-                  </span>
-                </span>
-              </span>
-              <span
-                className="inline-block size-1.5 shrink-0 rounded-full border border-white transition-[background-color] duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:bg-white group-focus-visible:bg-white"
-                aria-hidden
-              />
-            </Link>
+            <ButtonPrimary />
           </header>
 
           <p className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-[0.28em] text-[15px] leading-[17px] font-black tracking-[0.08em] md:text-[16px] md:leading-[18px]">
