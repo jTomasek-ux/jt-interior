@@ -128,7 +128,9 @@ export function HomeHero() {
               controls={panelId}
               className="md:hidden"
             />
-            <ButtonPrimary className="hidden md:inline-flex" />
+            <div className="hidden md:block">
+              <ButtonPrimary />
+            </div>
           </header>
 
           <p className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-[0.28em] text-[15px] leading-[17px] font-black tracking-[0.08em] md:text-[16px] md:leading-[18px]">
