@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ContactForm } from "@/components/contact-form";
 import { ContactScrollLock } from "@/components/contact-scroll-lock";
+import { SiteTopBar } from "@/components/site-top-bar";
 import { footerInfo } from "@/lib/footer";
 
 export const metadata: Metadata = {
@@ -10,6 +11,24 @@ export const metadata: Metadata = {
     "Tell us about your project. JT Interiors will review your enquiry and get back to you.",
 };
 
+function BackHomeLink() {
+  return (
+    <Link
+      href="/"
+      className="group inline-flex text-[13px] leading-[14px] font-bold tracking-[0.06em] uppercase"
+    >
+      <span className="relative block h-[14px] overflow-hidden">
+        <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+          <span className="block h-[14px]">← Back home</span>
+          <span className="block h-[14px]" aria-hidden>
+            ← Back home
+          </span>
+        </span>
+      </span>
+    </Link>
+  );
+}
+
 export default function ContactPage() {
   return (
     <ContactScrollLock>
@@ -17,27 +36,7 @@ export default function ContactPage() {
         id="contact"
         className="relative z-10 flex h-dvh max-h-dvh flex-col overflow-hidden bg-background px-4 py-6 text-foreground md:px-8 md:py-8 lg:px-12"
       >
-        <header className="mb-6 flex shrink-0 items-center justify-between gap-4 md:mb-8">
-          <Link
-            href="/"
-            className="text-[20px] leading-[24px] font-bold tracking-[-0.04em] md:text-[28px] md:leading-[32px]"
-          >
-            JT Interiors
-          </Link>
-          <Link
-            href="/"
-            className="group inline-flex text-[13px] leading-[14px] font-bold tracking-[0.06em] uppercase"
-          >
-            <span className="relative block h-[14px] overflow-hidden">
-              <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                <span className="block h-[14px]">← Back home</span>
-                <span className="block h-[14px]" aria-hidden>
-                  ← Back home
-                </span>
-              </span>
-            </span>
-          </Link>
-        </header>
+        <SiteTopBar desktopAction={<BackHomeLink />} />
 
         <div className="grid min-h-0 flex-1 grid-cols-1 gap-8 overflow-hidden md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-center md:gap-12 lg:gap-20">
           <div className="min-h-0">

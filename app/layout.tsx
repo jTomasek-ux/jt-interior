@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { ScrollActions } from "@/components/scroll-actions";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import "./globals.css";
 
@@ -24,7 +25,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${satoshi.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
-        <SmoothScroll>{children}</SmoothScroll>
+        <SmoothScroll>
+          {children}
+          <ScrollActions />
+        </SmoothScroll>
       </body>
     </html>
   );
