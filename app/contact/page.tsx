@@ -34,11 +34,11 @@ export default function ContactPage() {
     <ContactScrollLock>
       <main
         id="contact"
-        className="relative z-10 flex h-dvh max-h-dvh flex-col overflow-hidden bg-background px-4 py-6 text-foreground md:px-8 md:py-8 lg:px-12"
+        className="relative z-10 flex min-h-dvh flex-col overflow-y-auto bg-background px-4 py-6 text-foreground md:h-dvh md:max-h-dvh md:overflow-hidden md:px-8 md:py-8 lg:px-12"
       >
         <SiteTopBar desktopAction={<BackHomeLink />} />
 
-        <div className="grid min-h-0 flex-1 grid-cols-1 gap-8 overflow-hidden md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-center md:gap-12 lg:gap-20">
+        <div className="grid min-h-0 flex-1 grid-cols-1 gap-8 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:items-center md:gap-12 md:overflow-hidden lg:gap-20">
           <div className="min-h-0">
             <p className="mb-2 text-[12px] leading-[15px] font-bold tracking-[0.06em] uppercase text-foreground/55 md:mb-3">
               (Contact)
@@ -70,7 +70,7 @@ export default function ContactPage() {
             </ul>
           </div>
 
-          <div id="enquiry" className="min-h-0">
+          <div id="enquiry" className="min-h-0 pb-8 md:pb-0">
             <p className="mb-4 text-[12px] leading-[15px] font-bold tracking-[0.06em] uppercase text-foreground/55 md:mb-5">
               (Enquiry)
             </p>

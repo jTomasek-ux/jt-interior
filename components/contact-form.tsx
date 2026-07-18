@@ -96,7 +96,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={pending}
-        className="group inline-flex w-fit items-center gap-2.5 rounded-[100px] bg-black px-5 py-3.5 text-[14px] leading-[14px] font-bold tracking-[0.06em] text-on-dark disabled:opacity-60 md:py-4"
+        className="group sticky bottom-4 z-10 mt-2 inline-flex w-fit items-center gap-2.5 rounded-[100px] bg-black px-5 py-3.5 text-[14px] leading-[14px] font-bold tracking-[0.06em] text-on-dark shadow-[0_8px_24px_rgba(0,0,0,0.18)] disabled:opacity-60 md:static md:mt-0 md:py-4 md:shadow-none"
       >
         <span className="relative block h-[14px] overflow-hidden">
           <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
