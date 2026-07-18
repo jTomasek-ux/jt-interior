@@ -26,6 +26,8 @@ export function ScrollActions() {
 
     const mm = gsap.matchMedia();
     const works = document.getElementById("works");
+    // Match homepage timing: appear after ~one viewport of scroll
+    const showAfter = Math.round(window.innerHeight * 0.85);
 
     const showConfig = works
       ? {
@@ -35,8 +37,8 @@ export function ScrollActions() {
           toggleActions: "play none none reverse" as const,
         }
       : {
-          start: 72,
-          end: 110,
+          start: showAfter,
+          end: showAfter + 40,
           toggleActions: "play none none reverse" as const,
         };
 
@@ -64,7 +66,7 @@ export function ScrollActions() {
       const trigger = ScrollTrigger.create({
         ...(works
           ? { trigger: "#works", start: "top top+=72" }
-          : { start: 72 }),
+          : { start: showAfter }),
         onEnter: () => {
           bar.style.opacity = "1";
           bar.style.pointerEvents = "auto";
