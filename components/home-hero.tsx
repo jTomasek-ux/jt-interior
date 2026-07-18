@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ButtonPrimary } from "@/components/button-primary";
+import { MenuButton, SiteMenu, useSiteMenu } from "@/components/site-menu";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
@@ -19,6 +20,7 @@ const navLinks = [
 
 export function HomeHero() {
   const lenis = useLenis();
+  const { open, setOpen, panelId } = useSiteMenu();
   const rootRef = useRef<HTMLElement>(null);
   const mediaRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -120,7 +122,13 @@ export function HomeHero() {
               ))}
             </nav>
 
-            <ButtonPrimary />
+            <MenuButton
+              onClick={() => setOpen(true)}
+              expanded={open}
+              controls={panelId}
+              className="md:hidden"
+            />
+            <ButtonPrimary className="hidden md:inline-flex" />
           </header>
 
           <p className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-[0.28em] text-[15px] leading-[17px] font-black tracking-[0.08em] md:text-[16px] md:leading-[18px]">
@@ -166,12 +174,13 @@ export function HomeHero() {
         </div>
       </section>
 
-      {/* Scroll runway — works section slides over the fixed hero */}
       <div
         ref={spacerRef}
         className="pointer-events-none relative z-0 h-dvh"
         aria-hidden
       />
+
+      <SiteMenu open={open} onOpenChange={setOpen} panelId={panelId} />
     </>
   );
 }
