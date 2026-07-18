@@ -12,7 +12,7 @@ export function TestimonialSection() {
       className="relative z-10 bg-background px-4 pb-24 pt-8 md:px-8 md:pb-32 md:pt-12 lg:px-12"
       aria-label="Client testimonial"
     >
-      <ScrollSlide fromY={100} className="mb-10 md:mb-14">
+      <ScrollSlide fromY={100} className="mb-4 md:mb-5">
         <p className="text-[14px] leading-[17px] font-bold tracking-[0.06em] uppercase text-foreground">
           (&nbsp;Hear from our client)
         </p>
