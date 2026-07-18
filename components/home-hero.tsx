@@ -158,16 +158,16 @@ export function HomeHero() {
             </Link>
           </p>
 
-          <div className="flex items-end justify-between gap-6">
-            <p className="max-w-[22ch] text-[22px] leading-[28px] font-bold tracking-[-0.02em] md:max-w-none md:text-[33px] md:leading-[39px]">
-              The JT Interior style is defined by
-              <br />
-              strong, solid forms with subtle elegance,
-              <br />
+          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
+            <p className="w-full text-[22px] leading-[28px] font-bold tracking-[-0.02em] md:w-auto md:max-w-none md:text-[33px] md:leading-[39px]">
+              The JT Interior style is defined by{" "}
+              <br className="hidden md:block" />
+              strong, solid forms with subtle elegance,{" "}
+              <br className="hidden md:block" />
               natural balance and enduring appeal
             </p>
 
-            <p className="shrink-0 self-end text-[16px] leading-[19px] font-bold tracking-[0.06em]">
+            <p className="text-[16px] leading-[19px] font-bold tracking-[0.06em] md:shrink-0 md:self-end">
               (SCROLL DOWN)
             </p>
           </div>
