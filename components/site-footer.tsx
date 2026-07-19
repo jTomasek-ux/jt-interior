@@ -145,18 +145,19 @@ export function SiteFooter() {
               </Link>
             </div>
 
-            <div>
+            <div className="flex items-baseline gap-[0.35em]">
+              <span>site by</span>
               <a
-                href="https://instagram.com"
+                href="https://jtomasek.com"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex w-fit"
+                className="group inline-flex border-b border-current pb-px"
               >
                 <span className="relative block h-[14px] overflow-hidden">
                   <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                    <span className="block h-[14px]">Instagram</span>
+                    <span className="block h-[14px]">jTomasek</span>
                     <span className="block h-[14px]" aria-hidden>
-                      Instagram
+                      jTomasek
                     </span>
                   </span>
                 </span>
