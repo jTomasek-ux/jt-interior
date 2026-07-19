@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ButtonPrimary } from "@/components/button-primary";
 import { MenuButton, SiteMenu, useSiteMenu } from "@/components/site-menu";
+import { HERO_READY_EVENT } from "@/components/page-loader";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
@@ -134,6 +135,18 @@ export function HomeHero() {
               sizes={heroMobileSizes}
               className="absolute inset-0 h-full w-full object-cover"
               fetchPriority="high"
+              ref={(img) => {
+                if (!img) return;
+                const markReady = () => {
+                  document.documentElement.dataset.heroReady = "true";
+                  window.dispatchEvent(new Event(HERO_READY_EVENT));
+                };
+                if (img.complete && img.naturalWidth > 0) {
+                  markReady();
+                  return;
+                }
+                img.addEventListener("load", markReady, { once: true });
+              }}
             />
           </picture>
         </div>

@@ -31,3 +31,108 @@ body {
     height: 100%;
   }
 }
+
+html.is-loading,
+html.is-loading body {
+  overflow: hidden;
+}
+
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--background);
+  transition:
+    opacity 700ms cubic-bezier(0.625, 0.05, 0, 1),
+    visibility 700ms;
+}
+
+.loader-screen--exit {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-sweep {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100vh;
+  width: 0;
+  overflow: hidden;
+  background: #000000;
+  will-change: width;
+}
+
+.loader-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  pointer-events: none;
+}
+
+.loader-copy--base {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: #000000;
+}
+
+.loader-copy--invert {
+  /* Full viewport size, anchored to sweep's left edge (= viewport left).
+     Sweep overflow clips it so light type only shows where the bar overlaps. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  color: #ede7de;
+}
+
+.loader-brand {
+  margin: 0;
+  font-size: clamp(2rem, 8vw, 3.5rem);
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 768px) {
+  .loader-brand {
+    font-size: 56px;
+    line-height: 59px;
+  }
+}
+
+.loader-counter {
+  margin: 0;
+  font-size: 14px;
+  line-height: 14px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader-sweep {
+    transition: none;
+  }
+}
