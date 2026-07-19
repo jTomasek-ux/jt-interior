@@ -5,7 +5,10 @@ import Link from "next/link";
 import { useEffect, useRef } from "react";
 import { ButtonPrimary } from "@/components/button-primary";
 import { MenuButton, SiteMenu, useSiteMenu } from "@/components/site-menu";
-import { HERO_READY_EVENT } from "@/components/page-loader";
+import {
+  HERO_READY_EVENT,
+  LOADER_DONE_EVENT,
+} from "@/components/page-loader";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useLenis } from "lenis/react";
@@ -62,7 +65,76 @@ export function HomeHero() {
   const mediaRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const spacerRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const centerRef = useRef<HTMLParagraphElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
+  // Entrance: image settle + staggered UI after loader
+  useEffect(() => {
+    const media = mediaRef.current;
+    const header = headerRef.current;
+    const center = centerRef.current;
+    const bottom = bottomRef.current;
+    if (!media || !header || !center || !bottom) return;
+
+    const reduceMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const bottomItems = bottom.children;
+
+    if (reduceMotion) {
+      gsap.set([media, header, center, bottomItems], {
+        clearProps: "all",
+      });
+      return;
+    }
+
+    gsap.set(media, { scale: 1.08 });
+    gsap.set(header, { y: -28, opacity: 0 });
+    gsap.set(center, { y: 20, opacity: 0 });
+    gsap.set(bottomItems, { y: 32, opacity: 0 });
+
+    const playEntrance = () => {
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(
+        media,
+        { scale: 1, duration: 1.45, ease: "power2.out" },
+        0,
+      )
+        .to(header, { y: 0, opacity: 1, duration: 0.95 }, 0.12)
+        .to(center, { y: 0, opacity: 1, duration: 0.9 }, 0.32)
+        .to(
+          bottomItems,
+          { y: 0, opacity: 1, duration: 0.95, stagger: 0.12 },
+          0.48,
+        );
+
+      return tl;
+    };
+
+    let entrance: gsap.core.Timeline | null = null;
+
+    const start = () => {
+      entrance = playEntrance();
+    };
+
+    if (document.documentElement.dataset.loaderDone === "true") {
+      start();
+    } else {
+      window.addEventListener(LOADER_DONE_EVENT, start, { once: true });
+    }
+
+    return () => {
+      window.removeEventListener(LOADER_DONE_EVENT, start);
+      entrance?.kill();
+    };
+  }, []);
+
+  // Scroll-linked parallax (after entrance baseline of scale 1)
   useEffect(() => {
     const root = rootRef.current;
     const media = mediaRef.current;
@@ -122,7 +194,10 @@ export function HomeHero() {
         ref={rootRef}
         className="fixed inset-0 z-0 h-dvh w-full overflow-hidden text-on-dark"
       >
-        <div ref={mediaRef} className="absolute inset-0 will-change-transform">
+        <div
+          ref={mediaRef}
+          className="absolute inset-0 will-change-transform"
+        >
           <picture>
             <source
               media="(min-width: 768px)"
@@ -160,7 +235,10 @@ export function HomeHero() {
           ref={contentRef}
           className="relative z-10 flex h-dvh flex-col justify-between px-6 py-7 will-change-transform md:px-12 md:py-9 lg:px-16"
         >
-          <header className="grid grid-cols-[1fr_auto] items-center gap-4 md:grid-cols-[auto_1fr_auto]">
+          <header
+            ref={headerRef}
+            className="grid grid-cols-[1fr_auto] items-center gap-4 will-change-transform md:grid-cols-[auto_1fr_auto]"
+          >
             <Link
               href="/"
               className="text-[24px] leading-[28px] font-bold tracking-[-0.04em] md:text-[56px] md:leading-[59px]"
@@ -201,35 +279,43 @@ export function HomeHero() {
             </div>
           </header>
 
-          <p className="absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-baseline gap-[0.28em] text-[15px] leading-[17px] font-black tracking-[0.08em] md:text-[16px] md:leading-[18px]">
-            <span>we are</span>
-            <Link
-              href="#works"
-              onClick={(event) => {
-                event.preventDefault();
-                if (lenis) {
-                  lenis.scrollTo("#works", { offset: -24 });
-                  return;
-                }
-                document
-                  .getElementById("works")
-                  ?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="group inline-flex border-b border-current pb-px"
+          <div className="absolute left-1/2 top-1/2 z-10 -translate-x-1/2 -translate-y-1/2">
+            <p
+              ref={centerRef}
+              className="flex items-baseline gap-[0.28em] text-[15px] leading-[17px] font-black tracking-[0.08em] will-change-transform md:text-[16px] md:leading-[18px]"
             >
-              <span className="relative block h-[17px] overflow-hidden md:h-[18px]">
-                <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
-                  <span className="block h-[17px] md:h-[18px]">different</span>
-                  <span className="block h-[17px] md:h-[18px]" aria-hidden>
-                    different
+              <span>we are</span>
+              <Link
+                href="#works"
+                onClick={(event) => {
+                  event.preventDefault();
+                  if (lenis) {
+                    lenis.scrollTo("#works", { offset: -24 });
+                    return;
+                  }
+                  document
+                    .getElementById("works")
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="group inline-flex border-b border-current pb-px"
+              >
+                <span className="relative block h-[17px] overflow-hidden md:h-[18px]">
+                  <span className="flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.625,0.05,0,1)] group-hover:-translate-y-1/2 group-focus-visible:-translate-y-1/2">
+                    <span className="block h-[17px] md:h-[18px]">different</span>
+                    <span className="block h-[17px] md:h-[18px]" aria-hidden>
+                      different
+                    </span>
                   </span>
                 </span>
-              </span>
-            </Link>
-          </p>
+              </Link>
+            </p>
+          </div>
 
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6">
-            <p className="w-full text-[22px] leading-[28px] font-bold tracking-[-0.02em] md:w-auto md:max-w-none md:text-[33px] md:leading-[39px]">
+          <div
+            ref={bottomRef}
+            className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between md:gap-6"
+          >
+            <p className="w-full text-[22px] leading-[28px] font-bold tracking-[-0.02em] will-change-transform md:w-auto md:max-w-none md:text-[33px] md:leading-[39px]">
               The JT Interior style is defined by{" "}
               <br className="hidden md:block" />
               strong, solid forms with subtle elegance,{" "}
@@ -237,7 +323,7 @@ export function HomeHero() {
               natural balance and enduring appeal
             </p>
 
-            <p className="text-[16px] leading-[19px] font-bold tracking-[0.06em] md:shrink-0 md:self-end">
+            <p className="text-[16px] leading-[19px] font-bold tracking-[0.06em] will-change-transform md:shrink-0 md:self-end">
               (SCROLL DOWN)
             </p>
           </div>

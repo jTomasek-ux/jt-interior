@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 const HOLD_AT = 60;
 const MAX_MS = 8000;
 export const HERO_READY_EVENT = "jt:hero-ready";
+export const LOADER_DONE_EVENT = "jt:loader-done";
 
 function wait(ms: number) {
   return new Promise<void>((resolve) => {
@@ -45,7 +46,6 @@ export function PageLoader() {
     const sweep = sweepRef.current;
     if (!sweep) return;
 
-    document.documentElement.classList.add("is-loading");
     progressProxy.current.value = 0;
     setProgress(0);
     gsap.set(sweep, { width: "0vw" });
@@ -112,11 +112,12 @@ export function PageLoader() {
 
       setProgress(100);
       setExiting(true);
+      document.documentElement.dataset.loaderDone = "true";
+      window.dispatchEvent(new Event(LOADER_DONE_EVENT));
       await wait(700);
       if (cancelled) return;
 
       setVisible(false);
-      document.documentElement.classList.remove("is-loading");
     };
 
     const run = async () => {
@@ -136,7 +137,6 @@ export function PageLoader() {
     return () => {
       cancelled = true;
       tl.kill();
-      document.documentElement.classList.remove("is-loading");
     };
   }, [pathname]);
 
